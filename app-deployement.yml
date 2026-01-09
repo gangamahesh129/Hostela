@@ -1,0 +1,42 @@
+# springboot-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hostela
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hostela
+  template:
+    metadata:
+      labels:
+        app: hostela
+    spec:
+      containers:
+        - name: hostela
+          image: gaddamgangamahesh/hostela:latest  # Ensure this is your actual Docker image
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql:3306/hostela  # Ensure the database name matches your setup
+            - name: SPRING_DATASOURCE_USERNAME
+              value: mahesh  # Ensure the username matches your setup
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: root  # Ensure the password matches your setup
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: hostela
+spec:
+  type: LoadBalancer  # Expose the service externally
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: hostela

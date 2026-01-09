@@ -30,4 +30,6 @@ public class HostelDetails {
 
     @Column(name = "userid")
     private Integer userid;
+
+
 }
