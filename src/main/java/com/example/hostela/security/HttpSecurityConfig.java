@@ -20,7 +20,7 @@ public class HttpSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( auth ->
                         auth.requestMatchers("/user/save",
-                                        "/user/login", "/exists/email", "/exists/phone").
+                                        "/user/login", "/exists/email", "/exists/phone", "/user/all").
                                 permitAll().anyRequest().authenticated())
                 .sessionManagement( s ->
                         s.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
